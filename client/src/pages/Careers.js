@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
-import { Box, Container, Typography, TextField, Button } from '@mui/material';
+import { Box, Container, Typography, TextField, Button, Grid, Alert } from '@mui/material';
+import axios from 'axios';
 import BackButton from '../components/BackButton';
 
 const Careers = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', resume: '', coverLetter: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', resume: '' });
+  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission (e.g., send to backend or email)
     console.log('Career application:', formData);
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/careers`, formData);
+      setSuccess('Application submitted successfully!');
+      setFormData({ name: '', email: '', resume: '' });
+    } catch (err) {
+      setError('Failed to submit application. Please try again.');
+    }
   };
 
   return (
@@ -20,72 +29,69 @@ const Careers = () => {
       <Container>
         <BackButton />
         <Typography variant="h2" align="center" gutterBottom>
-          Careers at Ravi Legal Associates
+          Careers
         </Typography>
         <Typography variant="body1" align="center" sx={{ mb: 6, maxWidth: 800, mx: 'auto' }}>
-          Join our team of passionate legal professionals dedicated to delivering justice. We offer mentorship, diversity, and opportunities for growth.
+          Join the team at Ravi Legal Associates and contribute to delivering justice with integrity and excellence. We seek passionate legal professionals dedicated to making a difference.
         </Typography>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" align="center" gutterBottom>
           Open Positions
         </Typography>
-        <Typography variant="body1" sx={{ mb: 4 }}>
-          - **Associate Lawyer**: 3+ years of experience in Criminal or Corporate Law.<br />
-          - **Paralegal**: Strong research and organizational skills.<br />
-          - **Legal Intern**: Current law students with a passion for Indian law.
+        <Typography variant="body1" sx={{ mb: 4, maxWidth: 800, mx: 'auto' }}>
+          <ul>
+            <li>
+              <strong>Associate Lawyer</strong>: Candidates with over three years of experience in Criminal or Corporate Law, demonstrating strong advocacy and analytical skills.
+            </li>
+            <li>
+              <strong>Paralegal</strong>: Individuals with exceptional research and organizational abilities, ready to support our legal team with precision and efficiency.
+            </li>
+            <li>
+              <strong>Legal Intern</strong>: Current law students with a keen interest in Indian law, eager to gain hands-on experience in a dynamic legal environment.
+            </li>
+          </ul>
         </Typography>
-        <Typography variant="h4" gutterBottom>
-          Apply Now
-        </Typography>
-        <Box sx={{ maxWidth: 600, mx: 'auto' }}>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            />
-            <TextField
-              label="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            />
-            <TextField
-              label="Resume (URL or Text)"
-              name="resume"
-              value={formData.resume}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            />
-            <TextField
-              label="Cover Letter"
-              name="coverLetter"
-              value={formData.coverLetter}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              multiline
-              rows={4}
-              required
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              className="cta-button"
-              sx={{ mt: 2 }}
-            >
-              Submit Application
-            </Button>
-          </form>
-        </Box>
+        {success && <Alert severity="success" sx={{ mb: 4 }}>{success}</Alert>}
+        {error && <Alert severity="error" sx={{ mb: 4 }}>{error}</Alert>}
+        <Grid container spacing={4} justifyContent="center">
+          <Grid item xs={12} md={6}>
+            <Typography variant="h4" gutterBottom>Apply Now</Typography>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                label="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                required
+              />
+              <TextField
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                required
+              />
+              <TextField
+                label="Resume Link or Details"
+                name="resume"
+                value={formData.resume}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                multiline
+                rows={4}
+                required
+              />
+              <Button type="submit" variant="contained" className="cta-button" sx={{ mt: 2 }}>
+                Submit Application
+              </Button>
+            </form>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );

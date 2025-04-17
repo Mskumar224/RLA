@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search'; // Corrected import to Search
+import SearchIcon from '@mui/icons-material/Search';
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -85,8 +85,8 @@ const Header = () => {
         <ListItem button component={Link} to="/case-studies" onClick={handleMobileMenuToggle}>
           <ListItemText primary="Case Studies" />
         </ListItem>
-        <ListItem button component={Link} to="/pro-bono" onClick={handleMobileMenuToggle}>
-          <ListItemText primary="Pro Bono" />
+        <ListItem button component={Link} to="/services" onClick={handleMobileMenuToggle}>
+          <ListItemText primary="Services" />
         </ListItem>
       </List>
     </Drawer>
@@ -126,7 +126,7 @@ const Header = () => {
           <Button color="inherit" component={Link} to="/resources">Resources</Button>
           <Button color="inherit" component={Link} to="/testimonials">Testimonials</Button>
           <Button color="inherit" component={Link} to="/case-studies">Case Studies</Button>
-          <Button color="inherit" component={Link} to="/pro-bono">Pro Bono</Button>
+          <Button color="inherit" component={Link} to="/services">Services</Button>
           <IconButton color="inherit">
             <SearchIcon />
           </IconButton>

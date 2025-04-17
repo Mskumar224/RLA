@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Typography, Grid, Button } from '@mui/material'; // Added Button import
+import { Box, Container, Typography, Grid, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import HeroSlider from '../components/HeroSlider';
 import PracticeAreaCard from '../components/PracticeAreaCard';

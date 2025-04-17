@@ -1,28 +1,37 @@
 import React, { useState } from 'react';
-import { Box, Container, Typography, TextField, Button, Grid } from '@mui/material';
+import { Box, Container, Typography, TextField, Button, Grid, Alert } from '@mui/material';
 import axios from 'axios';
-import CaseReviewForm from '../components/CaseReviewForm';
 import BackButton from '../components/BackButton';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+    caseDetails: '',
+  });
+  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, isCaseReview = false) => {
     e.preventDefault();
+    setSuccess(null);
+    setError(null);
+
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/contact`, formData);
-      setSuccess(true);
-      setError('');
-      setFormData({ name: '', email: '', message: '' });
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/email`, {
+        name: formData.name,
+        email: formData.email,
+        message: isCaseReview ? formData.caseDetails : formData.message,
+      });
+      setSuccess(response.data.message);
+      setFormData({ name: '', email: '', message: '', caseDetails: '' });
     } catch (err) {
-      setError('Failed to send message. Please try again.');
-      setSuccess(false);
+      setError('Failed to send message. Please check your internet connection or try again later.');
     }
   };
 
@@ -34,13 +43,13 @@ const Contact = () => {
           Contact Us
         </Typography>
         <Typography variant="body1" align="center" sx={{ mb: 6, maxWidth: 800, mx: 'auto' }}>
-          Reach out to Ravi Legal Associates for expert legal advice or to schedule a consultation. We’re here to help.
+          Reach out to Ravi Legal Associates for expert legal advice or to schedule a consultation. We’re here to assist you with your legal needs.
         </Typography>
+        {success && <Alert severity="success" sx={{ mb: 4 }}>{success}</Alert>}
+        {error && <Alert severity="error" sx={{ mb: 4 }}>{error}</Alert>}
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
-            <Typography variant="h4" gutterBottom>
-              Send Us a Message
-            </Typography>
+            <Typography variant="h4" gutterBottom>Contact Form</Typography>
             <form onSubmit={handleSubmit}>
               <TextField
                 label="Name"
@@ -54,6 +63,7 @@ const Contact = () => {
               <TextField
                 label="Email"
                 name="email"
+                type="email"
                 value={formData.email}
                 onChange={handleChange}
                 fullWidth
@@ -71,46 +81,50 @@ const Contact = () => {
                 rows={4}
                 required
               />
-              <Button
-                type="submit"
-                variant="contained"
-                className="cta-button"
-                sx={{ mt: 2 }}
-              >
+              <Button type="submit" variant="contained" className="cta-button" sx={{ mt: 2 }}>
                 Send Message
               </Button>
-              {success && <Typography color="success.main" sx={{ mt: 2 }}>Message sent successfully!</Typography>}
-              {error && <Typography color="error.main" sx={{ mt: 2 }}>{error}</Typography>}
             </form>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="h4" gutterBottom>
-              Case Review
-            </Typography>
-            <CaseReviewForm />
+            <Typography variant="h4" gutterBottom>Case Review</Typography>
+            <form onSubmit={(e) => handleSubmit(e, true)}>
+              <TextField
+                label="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                required
+              />
+              <TextField
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                required
+              />
+              <TextField
+                label="Case Details"
+                name="caseDetails"
+                value={formData.caseDetails}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                multiline
+                rows={4}
+                required
+              />
+              <Button type="submit" variant="contained" className="cta-button" sx={{ mt: 2 }}>
+                Submit Case
+              </Button>
+            </form>
           </Grid>
         </Grid>
-        <Box sx={{ mt: 6 }}>
-          <Typography variant="h4" gutterBottom>
-            Visit Us
-          </Typography>
-          <Typography variant="body1">
-            123 Legal Avenue, Hyderabad, Telangana, India<br />
-            Phone: 9177204555<br />
-            Email: info@ravilegal.com
-          </Typography>
-          <Box sx={{ mt: 4, height: 300 }}>
-            <iframe
-              title="Office Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.123456789!2d78.456789!3d17.456123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDI3JzIxLjciTiA3OMKwMjcnMjQuNCJF!5e0!3m2!1sen!2sin!4v1634567891234"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-            ></iframe>
-          </Box>
-        </Box>
       </Container>
     </Box>
   );

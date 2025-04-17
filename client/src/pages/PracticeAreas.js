@@ -1,70 +1,45 @@
 import React from 'react';
-import { Box, Container, Typography, Accordion, AccordionSummary, AccordionDetails, Button } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Container, Typography, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 
 const PracticeAreas = () => {
   const areas = [
     {
-      id: 'constitutional',
       title: 'Constitutional Law',
-      description: 'Constitutional Law governs the framework of the Indian Constitution, ensuring the protection of fundamental rights, directive principles, and judicial review. Landmark cases like *Kesavananda Bharati v. State of Kerala* (1973) established the basic structure doctrine, preserving the Constitution’s core principles.',
-      services: [
-        'Writ petitions (habeas corpus, mandamus, certiorari)',
-        'Public Interest Litigation (PIL)',
-        'Constitutional disputes and advisory services',
-      ],
+      description: 'Our team provides expert representation in writ petitions, public interest litigation, and constitutional disputes, ensuring your fundamental rights are upheld with precision and dedication.',
+      image: '/assets/images/constitutional.jpg',
+      link: '#constitutional',
     },
     {
-      id: 'criminal',
       title: 'Criminal Law',
-      description: 'Criminal Law addresses offenses under the Indian Penal Code (IPC), 1860, and the Code of Criminal Procedure (CrPC), 1973. It covers crimes such as theft, murder, fraud, and cybercrime, ensuring justice for victims and fair trials for the accused.',
-      services: [
-        'Bail applications and anticipatory bail',
-        'Defense in criminal trials and appeals',
-        'Juvenile justice and cybercrime cases',
-      ],
+      description: 'We offer robust defense strategies for bail applications, criminal trials, and appeals, safeguarding your rights with meticulous legal expertise and unwavering commitment.',
+      image: '/assets/images/criminal.jpg',
+      link: '#criminal',
     },
     {
-      id: 'civil',
       title: 'Civil Law',
-      description: 'Civil Law governs disputes between individuals or entities under the Code of Civil Procedure (CPC), 1908. It includes property disputes, contract breaches, and torts, aiming to resolve conflicts through compensation or injunctions.',
-      services: [
-        'Property and land litigation',
-        'Contract enforcement and breach disputes',
-        'Injunctions and recovery suits',
-      ],
+      description: 'From property disputes to contract litigation, our advocates deliver comprehensive solutions tailored to resolve complex civil matters efficiently and effectively.',
+      image: '/assets/images/civil.jpg',
+      link: '#civil',
     },
     {
-      id: 'family',
       title: 'Family Law',
-      description: 'Family Law encompasses personal laws such as the Hindu Marriage Act, 1955, Muslim Personal Law, and others, addressing marriage, divorce, custody, and inheritance. It ensures fair resolution of sensitive family matters.',
-      services: [
-        'Divorce and separation proceedings',
-        'Child custody and maintenance',
-        'Succession and estate planning',
-      ],
+      description: 'With compassion and expertise, we handle divorce, custody, and maintenance cases, prioritizing amicable resolutions and your family’s well-being.',
+      image: '/assets/images/family.jpg',
+      link: '#family',
     },
     {
-      id: 'corporate',
       title: 'Corporate Law',
-      description: 'Corporate Law, regulated by the Companies Act, 2013, and SEBI regulations, governs business formation, compliance, and transactions. It supports businesses in navigating legal complexities for growth and stability.',
-      services: [
-        'Contract drafting and review',
-        'Mergers and acquisitions (M&A)',
-        'Corporate governance and insolvency resolution',
-      ],
+      description: 'Our strategic counsel supports businesses with formation, compliance, mergers, and dispute resolution, fostering growth and legal security in a dynamic market.',
+      image: '/assets/images/corporate.jpg',
+      link: '#corporate',
     },
     {
-      id: 'ip',
       title: 'Intellectual Property Law',
-      description: 'Intellectual Property Law protects creations under the Patents Act, 1970, Trademarks Act, 1999, and Copyright Act, 1957. It safeguards innovations, brands, and artistic works from infringement.',
-      services: [
-        'Patent and trademark registration',
-        'Copyright disputes and licensing',
-        'IP enforcement and litigation',
-      ],
+      description: 'Protect your innovations with our specialized services in trademark, copyright, and patent law, ensuring your intellectual assets are secure.',
+      image: '/assets/images/ip.jpg',
+      link: '#ip',
     },
   ];
 
@@ -73,36 +48,39 @@ const PracticeAreas = () => {
       <Container>
         <BackButton />
         <Typography variant="h2" align="center" gutterBottom>
-          Practice Areas
+          Our Practice Areas
         </Typography>
         <Typography variant="body1" align="center" sx={{ mb: 6, maxWidth: 800, mx: 'auto' }}>
-          Our expertise spans a wide range of Indian laws, providing comprehensive legal solutions tailored to your needs. Explore our practice areas below.
+          At Ravi Legal Associates, we provide specialized legal services across diverse domains, delivering tailored solutions with professionalism and expertise to meet your unique needs.
         </Typography>
-        {areas.map((area) => (
-          <Accordion key={area.id} sx={{ mb: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h5">{area.title}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body1" sx={{ mb: 2 }}>{area.description}</Typography>
-              <Typography variant="h6">Our Services:</Typography>
-              <ul>
-                {area.services.map((service, index) => (
-                  <li key={index}><Typography variant="body2">{service}</Typography></li>
-                ))}
-              </ul>
-              <Button
-                variant="contained"
-                className="cta-button"
-                component={Link}
-                to="/contact"
-                sx={{ mt: 2 }}
-              >
-                Contact Us for Expert Advice
-              </Button>
-            </AccordionDetails>
-          </Accordion>
-        ))}
+        <Grid container spacing={4}>
+          {areas.map((area, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card sx={{ boxShadow: 3 }}>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={area.image}
+                  alt={area.title}
+                />
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>{area.title}</Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    {area.description}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    className="cta-button"
+                    component={Link}
+                    to={area.link}
+                  >
+                    Learn More
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </Container>
     </Box>
   );
