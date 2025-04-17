@@ -4,13 +4,21 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const contactRoutes = require('./routes/contact');
 const emailRoutes = require('./routes/email');
-const careersRoutes = require('./routes/careers'); // Added careers route
+const careersRoutes = require('./routes/careers');
 
 const app = express();
 
-// Configure CORS to allow requests from the frontend
+// Configure CORS to allow specific origins
+const allowedOrigins = ['https://ravilegalassociates.com', 'http://localhost:3000'];
 app.use(cors({
-  origin: 'https://ravilegalassociates.com',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g., server-to-server) or from allowed origins
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: true
@@ -18,6 +26,12 @@ app.use(cors({
 
 // Handle preflight OPTIONS requests
 app.options('*', cors());
+
+// Log requests for debugging
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url} - Origin: ${req.headers.origin}`);
+  next();
+});
 
 app.use(express.json());
 
@@ -31,7 +45,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use('/api/contact', contactRoutes);
 app.use('/api/email', emailRoutes);
-app.use('/api/careers', careersRoutes); // Added careers route
+app.use('/api/careers', careersRoutes);
 
 // Catch-all for invalid routes
 app.use((req, res) => {
