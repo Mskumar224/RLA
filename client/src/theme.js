@@ -2,14 +2,29 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
-    primary: { main: '#1B263B' }, // Navy Blue
-    secondary: { main: '#D4A017' }, // Gold
-    background: { default: '#F5F5F5' }, // Light Gray
+    primary: { main: '#1A2A44' }, // Deep navy blue
+    secondary: { main: '#D4A017' }, // Muted gold
+    background: { default: '#FFFFFF', paper: '#E8ECEF' }, // White and soft gray
+    text: { primary: '#1A2A44', secondary: '#4A5568' },
   },
   typography: {
-    fontFamily: 'Roboto, Arial, sans-serif',
-    h1: { fontWeight: 700, color: '#1B263B' },
-    h6: { fontStyle: 'italic', color: '#D4A017' },
+    fontFamily: '"Roboto", sans-serif',
+    h1: { fontFamily: '"Merriweather", serif', fontWeight: 700 },
+    h2: { fontFamily: '"Merriweather", serif', fontWeight: 700 },
+    h3: { fontFamily: '"Merriweather", serif', fontWeight: 500 },
+    button: { textTransform: 'none', fontWeight: 600 },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          padding: '10px 20px',
+          transition: 'all 0.3s ease',
+          '&:hover': { transform: 'scale(1.05)' },
+        },
+      },
+    },
   },
 });
 

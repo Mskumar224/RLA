@@ -4,13 +4,18 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Home from './components/Home';
-import About from './components/About';
-import PracticeAreas from './components/PracticeAreas';
-import Insights from './components/Insights';
-import Careers from './components/Careers';
-import Team from './components/Team';
-import Contact from './components/Contact';
+import Home from './pages/Home';
+import About from './pages/About';
+import PracticeAreas from './pages/PracticeAreas';
+import Insights from './pages/Insights';
+import Careers from './pages/Careers';
+import Team from './pages/Team';
+import Contact from './pages/Contact';
+import Resources from './pages/Resources';
+import Testimonials from './pages/Testimonials';
+import CaseStudies from './pages/CaseStudies';
+import ProBono from './pages/ProBono';
+import LiveChat from './components/LiveChat';
 
 function App() {
   return (
@@ -25,8 +30,13 @@ function App() {
           <Route path="/careers" element={<Careers />} />
           <Route path="/team" element={<Team />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/resources" element={<Resources />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/pro-bono" element={<ProBono />} />
         </Routes>
         <Footer />
+        <LiveChat />
       </Router>
     </ThemeProvider>
   );
