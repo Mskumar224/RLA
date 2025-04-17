@@ -15,12 +15,15 @@ const Careers = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Career application:', formData);
+    setSuccess(null);
+    setError(null);
+
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/careers`, formData);
-      setSuccess('Application submitted successfully!');
+      setSuccess(response.data.message);
       setFormData({ name: '', email: '', resume: '' });
     } catch (err) {
-      setError('Failed to submit application. Please try again.');
+      setError('Failed to submit application. Please try again later or contact us at info@ravilegal.com.');
     }
   };
 

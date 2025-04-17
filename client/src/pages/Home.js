@@ -10,37 +10,37 @@ const Home = () => {
     {
       title: 'Constitutional Law',
       description: 'Expert representation in writ petitions and public interest litigation.',
-      image: '/assets/images/constitutional.jpg',
+      image: '/assets/images/constitutional.jpg', // Ensure this file exists in client/public/assets/images/
       link: '/practice-areas#constitutional',
     },
     {
       title: 'Criminal Law',
       description: 'Robust defense in bail applications and criminal trials.',
-      image: '/assets/images/criminal.jpg',
+      image: '/assets/images/criminal.jpg', // Ensure this file exists in client/public/assets/images/
       link: '/practice-areas#criminal',
     },
     {
       title: 'Civil Law',
       description: 'Comprehensive solutions for property and contract disputes.',
-      image: '/assets/images/civil.jpg',
+      image: '/assets/images/civil.jpg', // Ensure this file exists in client/public/assets/images/
       link: '/practice-areas#civil',
     },
     {
       title: 'Family Law',
       description: 'Compassionate support for divorce and custody matters.',
-      image: '/assets/images/family.jpg',
+      image: '/assets/images/family.jpg', // Ensure this file exists in client/public/assets/images/
       link: '/practice-areas#family',
     },
     {
       title: 'Corporate Law',
       description: 'Strategic advice for business formation and compliance.',
-      image: '/assets/images/corporate.jpg',
+      image: '/assets/images/corporate.jpg', // Ensure this file exists in client/public/assets/images/
       link: '/practice-areas#corporate',
     },
     {
       title: 'Intellectual Property Law',
       description: 'Protecting your innovations with expert IP services.',
-      image: '/assets/images/ip.jpg',
+      image: '/assets/images/ip.jpg', // Ensure this file exists in client/public/assets/images/
       link: '/practice-areas#ip',
     },
   ];
@@ -70,7 +70,7 @@ const Home = () => {
       <Box
         className="parallax"
         sx={{
-          backgroundImage: 'url(/assets/images/office.jpg)',
+          backgroundImage: 'url(/assets/images/office.jpg)', // Ensure this file exists in client/public/assets/images/
           py: 10,
           textAlign: 'center',
           color: '#FFFFFF',
