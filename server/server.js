@@ -10,36 +10,32 @@ const app = express();
 
 // Configure CORS
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Origin, X-Requested-With, Accept');
-  res.header('Access-Control-Allow-Credentials', 'true');
+  const allowedOrigins = [
+    'https://ravilegalassociates.com',
+    'https://www.ravilegalassociates.com',
+    'http://localhost:3000',
+  ];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin) || !origin) {
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Origin, X-Requested-With, Accept');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Vary', 'Origin');
   if (req.method === 'OPTIONS') {
     return res.status(204).send();
   }
   next();
 });
 
-app.use(cors({
-  origin: [
-    'https://ravilegalassociates.com',
-    'https://www.ravilegalassociates.com',
-    'http://localhost:3000',
-  ],
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept'],
-  credentials: true,
-  preflightContinue: false,
-  optionsSuccessStatus: 204
-}));
-
 // Log requests
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url} - Origin: ${req.headers.origin || 'none'}`);
+  console.log(`${req.method} ${req.url} - Origin: ${req.headers.origin || 'none'} - IP: ${req.ip}`);
   next();
 });
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 console.log('MONGO_URI:', process.env.MONGO_URI || 'MONGO_URI not set');
 
@@ -59,6 +55,7 @@ app.get('/', (req, res) => {
 app.use('/api/contact', contactRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/careers', careersRoutes);
+app.use('/email', emailRoutes); // Legacy route for backward compatibility
 
 // Catch-all for invalid routes
 app.use((req, res) => {

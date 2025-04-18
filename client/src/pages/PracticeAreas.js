@@ -56,10 +56,10 @@ const PracticeAreas = () => {
     <Box sx={{ py: 8, bgcolor: '#F5F6F5' }}>
       <Container>
         <BackButton />
-        <Typography variant="h2" align="center" gutterBottom sx={{ color: '#003087' }}>
+        <Typography variant="h2" align="center" gutterBottom sx={{ color: '#003087', fontSize: { xs: '1.5rem', md: '2.5rem' } }}>
           Practice Areas
         </Typography>
-        <Typography variant="body1" align="center" sx={{ mb: 6, maxWidth: 800, mx: 'auto', color: '#333' }}>
+        <Typography variant="body1" align="center" sx={{ mb: 6, maxWidth: 800, mx: 'auto', color: '#333', fontSize: { xs: '0.9rem', md: '1rem' } }}>
           Our team at Ravi Legal Associates specializes in a wide range of legal domains, delivering tailored solutions with integrity and expertise to meet your needs.
         </Typography>
         <Grid container spacing={4}>
@@ -76,15 +76,15 @@ const PracticeAreas = () => {
                   '&:hover': { transform: 'translateY(-5px)' },
                 }}
               >
-                <Typography variant="h6" sx={{ color: '#003087', mb: 1 }}>
+                <Typography variant="h6" sx={{ color: '#003087', mb: 1, fontSize: { xs: '1rem', md: '1.25rem' } }}>
                   {area.title}
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#333', mb: 2 }}>
+                <Typography variant="body2" sx={{ color: '#333', mb: 2, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
                   {area.description}
                 </Typography>
                 <Button
                   variant="outlined"
-                  sx={{ color: '#D4A017', borderColor: '#D4A017', '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' } }}
+                  sx={{ color: '#D4A017', borderColor: '#D4A017', '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' }, fontSize: { xs: '0.8rem', md: '1rem' } }}
                   component={Link}
                   to={`/practice-areas#${area.id}`}
                 >
