@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box, Typography } from '@mui/material';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -13,65 +12,52 @@ const HeroSlider = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3000,
   };
 
   const slides = [
     {
-      image: '/assets/images/hero1.jpg',
-      title: 'Justice Resonates with Ravi Legal Associates',
-      subtitle: 'Expert Legal Solutions in India',
-      cta: 'Learn More',
-      link: '/about',
+      image: '/assets/images/hero1.jpg', // Add to client/public/assets/images/
+      caption: 'Expert Legal Solutions',
     },
     {
-      image: '/assets/images/hero2.jpg',
-      title: 'Free Legal Advice',
-      subtitle: 'Every 3rd Saturday of the Month, Call: 9177204555',
-      cta: 'Contact Us',
-      link: '/contact',
+      image: '/assets/images/hero2.jpg', // Add to client/public/assets/images/
+      caption: 'Justice Resonates',
     },
     {
-      image: '/assets/images/hero3.jpg',
-      title: 'Trusted Legal Expertise',
-      subtitle: 'Across Constitutional, Criminal, Civil, and Corporate Law',
-      cta: 'Explore Services',
-      link: '/practice-areas',
+      image: '/assets/images/hero3.jpg', // Add to client/public/assets/images/
+      caption: 'Trusted Advocacy',
     },
   ];
 
   return (
-    <Slider {...settings} className="hero-slider">
-      {slides.map((slide, index) => (
-        <Box
-          key={index}
-          sx={{
-            backgroundImage: `url(${slide.image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            height: '70vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
-            color: '#FFFFFF',
-          }}
-        >
-          <Box sx={{ bgcolor: 'rgba(0, 0, 0, 0.5)', p: 4, borderRadius: 2 }}>
-            <Typography variant="h2" gutterBottom>{slide.title}</Typography>
-            <Typography variant="h5" gutterBottom>{slide.subtitle}</Typography>
-            <Button
-              variant="contained"
-              className="cta-button"
-              component={Link}
-              to={slide.link}
+    <Box sx={{ width: '100%', overflow: 'hidden' }}>
+      <Slider {...settings}>
+        {slides.map((slide, index) => (
+          <Box key={index} sx={{ position: 'relative' }}>
+            <img
+              src={slide.image}
+              alt={slide.caption}
+              style={{ width: '100%', height: '500px', objectFit: 'cover' }}
+            />
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                textAlign: 'center',
+                color: '#FFFFFF',
+                bgcolor: 'rgba(0, 0, 0, 0.5)',
+                p: 2,
+              }}
             >
-              {slide.cta}
-            </Button>
+              <Typography variant="h3">{slide.caption}</Typography>
+            </Box>
           </Box>
-        </Box>
-      ))}
-    </Slider>
+        ))}
+      </Slider>
+    </Box>
   );
 };
 

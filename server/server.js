@@ -9,16 +9,8 @@ const careersRoutes = require('./routes/careers');
 const app = express();
 
 // Configure CORS to allow specific origins
-const allowedOrigins = ['https://ravilegalassociates.com', 'http://localhost:3000'];
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (e.g., server-to-server) or from allowed origins
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: ['https://ravilegalassociates.com', 'http://localhost:3000'],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: true

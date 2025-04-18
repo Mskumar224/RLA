@@ -5,28 +5,28 @@ import BackButton from '../components/BackButton';
 const Team = () => {
   const teamMembers = [
     {
-      name: 'Deeravath Ravi Naik',
-      role: 'Lead Advocate',
-      qualifications: 'BSc, MA, LLB, Dip. in Psy. Guidance & Counselling',
-      image: '/assets/images/ravi-naik.jpg',
+      name: 'Ravi Naik',
+      role: 'Senior Advocate',
+      image: '/assets/images/ravi-naik.jpg', // Add to client/public/assets/images/
+      bio: 'With over 20 years of experience, Ravi Naik leads the firm with expertise in Constitutional and Criminal Law.',
     },
     {
-      name: 'Manda Ranjith Rao',
+      name: 'Nagaraju Naik',
       role: 'Advocate',
-      qualifications: 'MSc, BEd, LLB',
-      image: '/assets/images/ranjith-rao.jpg',
+      image: '/assets/images/nagaraju-naik.jpg', // Add to client/public/assets/images/
+      bio: 'Specializing in Civil and Family Law, Nagaraju brings a compassionate approach to complex cases.',
     },
     {
-      name: 'Kodooru Sateesh',
-      role: 'Advocate',
-      qualifications: 'MA, BEd, LLM',
-      image: '/assets/images/sateesh.jpg',
+      name: 'Ranjith Rao',
+      role: 'Corporate Lawyer',
+      image: '/assets/images/ranjith-rao.jpg', // Add to client/public/assets/images/
+      bio: 'Ranjith provides strategic counsel in corporate law, ensuring business success and compliance.',
     },
     {
-      name: 'Bhukya Nagaraju Naik',
-      role: 'Advocate',
-      qualifications: 'MSc, LLM',
-      image: '/assets/images/nagaraju-naik.jpg',
+      name: 'Sateesh Kumar',
+      role: 'Associate Lawyer',
+      image: '/assets/images/sateesh.jpg', // Add to client/public/assets/images/
+      bio: 'Sateesh excels in Intellectual Property Law, protecting client innovations with precision.',
     },
   ];
 
@@ -38,7 +38,7 @@ const Team = () => {
           Our Team
         </Typography>
         <Typography variant="body1" align="center" sx={{ mb: 6, maxWidth: 800, mx: 'auto' }}>
-          Ravi Legal Associates is led by Deeravath Ravi Naik (BSc, MA, LLB, Dip. in Psy. Guidance & Counselling), supported by a dedicated team of advocates: Manda Ranjith Rao (MSc, BEd, LLB), Kodooru Sateesh (MA, BEd, LLM), and Bhukya Nagaraju Naik (MSc, LLM). Together, they bring unparalleled expertise and commitment to every case.
+          Meet the dedicated professionals at Ravi Legal Associates, committed to delivering justice with integrity and expertise.
         </Typography>
         <Grid container spacing={4}>
           {teamMembers.map((member, index) => (
@@ -52,8 +52,10 @@ const Team = () => {
                 />
                 <CardContent>
                   <Typography variant="h6" gutterBottom>{member.name}</Typography>
-                  <Typography variant="body2" color="text.secondary">{member.role}</Typography>
-                  <Typography variant="body2" color="text.secondary">{member.qualifications}</Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    {member.role}
+                  </Typography>
+                  <Typography variant="body2">{member.bio}</Typography>
                 </CardContent>
               </Card>
             </Grid>
