@@ -1,62 +1,31 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { Box, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const HeroSlider = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-  };
-
-  const slides = [
-    {
-      image: '/assets/images/hero1.jpg', // Add to client/public/assets/images/
-      caption: 'Expert Legal Solutions',
-    },
-    {
-      image: '/assets/images/hero2.jpg', // Add to client/public/assets/images/
-      caption: 'Justice Resonates',
-    },
-    {
-      image: '/assets/images/hero3.jpg', // Add to client/public/assets/images/
-      caption: 'Trusted Advocacy',
-    },
-  ];
-
   return (
-    <Box sx={{ width: '100%', overflow: 'hidden' }}>
-      <Slider {...settings}>
-        {slides.map((slide, index) => (
-          <Box key={index} sx={{ position: 'relative' }}>
-            <img
-              src={slide.image}
-              alt={slide.caption}
-              style={{ width: '100%', height: '500px', objectFit: 'cover' }}
-            />
-            <Box
-              sx={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                textAlign: 'center',
-                color: '#FFFFFF',
-                bgcolor: 'rgba(0, 0, 0, 0.5)',
-                p: 2,
-              }}
-            >
-              <Typography variant="h3">{slide.caption}</Typography>
-            </Box>
-          </Box>
-        ))}
-      </Slider>
+    <Box
+      sx={{
+        bgcolor: '#003087',
+        color: '#FFFFFF',
+        py: 10,
+        textAlign: 'center',
+      }}
+    >
+      <Typography variant="h2" gutterBottom>
+        Expert Legal Solutions
+      </Typography>
+      <Typography variant="h5" sx={{ mb: 4, maxWidth: 800, mx: 'auto' }}>
+        Ravi Legal Associates delivers justice with integrity across Constitutional, Criminal, Civil, Family, and Corporate law.
+      </Typography>
+      <Button
+        variant="contained"
+        sx={{ bgcolor: '#D4A017', '&:hover': { bgcolor: '#B8860B' } }}
+        component={Link}
+        to="/contact"
+      >
+        Contact Us
+      </Button>
     </Box>
   );
 };

@@ -28,19 +28,19 @@ const Careers = () => {
   };
 
   return (
-    <Box sx={{ py: 8 }}>
+    <Box sx={{ py: 8, bgcolor: '#F5F6F5' }}>
       <Container>
         <BackButton />
-        <Typography variant="h2" align="center" gutterBottom>
+        <Typography variant="h2" align="center" gutterBottom sx={{ color: '#003087' }}>
           Careers
         </Typography>
-        <Typography variant="body1" align="center" sx={{ mb: 6, maxWidth: 800, mx: 'auto' }}>
+        <Typography variant="body1" align="center" sx={{ mb: 6, maxWidth: 800, mx: 'auto', color: '#333' }}>
           Join the team at Ravi Legal Associates and contribute to delivering justice with integrity and excellence. We seek passionate legal professionals dedicated to making a difference.
         </Typography>
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography variant="h4" align="center" gutterBottom sx={{ color: '#003087' }}>
           Open Positions
         </Typography>
-        <Typography variant="body1" sx={{ mb: 4, maxWidth: 800, mx: 'auto' }}>
+        <Typography variant="body1" sx={{ mb: 4, maxWidth: 800, mx: 'auto', color: '#333' }}>
           <ul>
             <li>
               <strong>Associate Lawyer</strong>: Candidates with over three years of experience in Criminal or Corporate Law, demonstrating strong advocacy and analytical skills.
@@ -57,7 +57,9 @@ const Careers = () => {
         {error && <Alert severity="error" sx={{ mb: 4 }}>{error}</Alert>}
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} md={6}>
-            <Typography variant="h4" gutterBottom>Apply Now</Typography>
+            <Typography variant="h4" gutterBottom sx={{ color: '#003087' }}>
+              Apply Now
+            </Typography>
             <form onSubmit={handleSubmit}>
               <TextField
                 label="Name"
@@ -67,6 +69,7 @@ const Careers = () => {
                 fullWidth
                 margin="normal"
                 required
+                sx={{ bgcolor: '#FFFFFF' }}
               />
               <TextField
                 label="Email"
@@ -77,6 +80,7 @@ const Careers = () => {
                 fullWidth
                 margin="normal"
                 required
+                sx={{ bgcolor: '#FFFFFF' }}
               />
               <TextField
                 label="Resume Link or Details"
@@ -88,8 +92,13 @@ const Careers = () => {
                 multiline
                 rows={4}
                 required
+                sx={{ bgcolor: '#FFFFFF' }}
               />
-              <Button type="submit" variant="contained" className="cta-button" sx={{ mt: 2 }}>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ mt: 2, bgcolor: '#D4A017', '&:hover': { bgcolor: '#B8860B' } }}
+              >
                 Submit Application
               </Button>
             </form>

@@ -8,7 +8,7 @@ const careersRoutes = require('./routes/careers');
 
 const app = express();
 
-// Configure CORS to allow specific origins
+// Configure CORS
 app.use(cors({
   origin: ['https://ravilegalassociates.com', 'http://localhost:3000'],
   methods: ['GET', 'POST', 'OPTIONS'],
@@ -16,10 +16,9 @@ app.use(cors({
   credentials: true
 }));
 
-// Handle preflight OPTIONS requests
 app.options('*', cors());
 
-// Log requests for debugging
+// Log requests
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url} - Origin: ${req.headers.origin}`);
   next();
@@ -27,13 +26,15 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-console.log('MONGO_URI:', process.env.MONGO_URI);
+console.log('MONGO_URI:', process.env.MONGO_URI || 'MONGO_URI not set');
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000,
+  maxPoolSize: 10,
 }).then(() => console.log('MongoDB connected'))
-  .catch((err) => console.log('MongoDB connection error:', err));
+  .catch((err) => console.error('MongoDB connection error:', err.message, err.stack));
 
 app.use('/api/contact', contactRoutes);
 app.use('/api/email', emailRoutes);

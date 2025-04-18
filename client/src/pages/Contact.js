@@ -4,12 +4,7 @@ import axios from 'axios';
 import BackButton from '../components/BackButton';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-    caseDetails: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
@@ -17,39 +12,34 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e, isCaseReview = false) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccess(null);
     setError(null);
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/email`, {
-        name: formData.name,
-        email: formData.email,
-        message: isCaseReview ? formData.caseDetails : formData.message,
-      });
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/email`, formData);
       setSuccess(response.data.message);
-      setFormData({ name: '', email: '', message: '', caseDetails: '' });
+      setFormData({ name: '', email: '', message: '' });
     } catch (err) {
-      setError('Failed to send message. Please check your internet connection or try again later.');
+      setError('Failed to send message. Please try again later or contact us at info@ravilegal.com.');
     }
   };
 
   return (
-    <Box sx={{ py: 8 }}>
+    <Box sx={{ py: 8, bgcolor: '#F5F6F5' }}>
       <Container>
         <BackButton />
-        <Typography variant="h2" align="center" gutterBottom>
+        <Typography variant="h2" align="center" gutterBottom sx={{ color: '#003087' }}>
           Contact Us
         </Typography>
-        <Typography variant="body1" align="center" sx={{ mb: 6, maxWidth: 800, mx: 'auto' }}>
-          Reach out to Ravi Legal Associates for expert legal advice or to schedule a consultation. We’re here to assist you with your legal needs.
+        <Typography variant="body1" align="center" sx={{ mb: 6, maxWidth: 800, mx: 'auto', color: '#333' }}>
+          Reach out to Ravi Legal Associates for expert legal advice and support. Our team is here to assist you with your legal needs.
         </Typography>
         {success && <Alert severity="success" sx={{ mb: 4 }}>{success}</Alert>}
         {error && <Alert severity="error" sx={{ mb: 4 }}>{error}</Alert>}
-        <Grid container spacing={4}>
+        <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} md={6}>
-            <Typography variant="h4" gutterBottom>Contact Form</Typography>
             <form onSubmit={handleSubmit}>
               <TextField
                 label="Name"
@@ -59,6 +49,7 @@ const Contact = () => {
                 fullWidth
                 margin="normal"
                 required
+                sx={{ bgcolor: '#FFFFFF' }}
               />
               <TextField
                 label="Email"
@@ -69,6 +60,7 @@ const Contact = () => {
                 fullWidth
                 margin="normal"
                 required
+                sx={{ bgcolor: '#FFFFFF' }}
               />
               <TextField
                 label="Message"
@@ -80,47 +72,14 @@ const Contact = () => {
                 multiline
                 rows={4}
                 required
+                sx={{ bgcolor: '#FFFFFF' }}
               />
-              <Button type="submit" variant="contained" className="cta-button" sx={{ mt: 2 }}>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ mt: 2, bgcolor: '#D4A017', '&:hover': { bgcolor: '#B8860B' } }}
+              >
                 Send Message
-              </Button>
-            </form>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h4" gutterBottom>Case Review</Typography>
-            <form onSubmit={(e) => handleSubmit(e, true)}>
-              <TextField
-                label="Name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-                required
-              />
-              <TextField
-                label="Email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-                required
-              />
-              <TextField
-                label="Case Details"
-                name="caseDetails"
-                value={formData.caseDetails}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-                multiline
-                rows={4}
-                required
-              />
-              <Button type="submit" variant="contained" className="cta-button" sx={{ mt: 2 }}>
-                Submit Case
               </Button>
             </form>
           </Grid>
