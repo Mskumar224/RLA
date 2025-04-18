@@ -10,14 +10,7 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-  origin: (origin, callback) => {
-    const allowedOrigins = ['https://ravilegalassociates.com', 'http://localhost:3000'];
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: ['https://ravilegalassociates.com', 'http://localhost:3000'],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: true
