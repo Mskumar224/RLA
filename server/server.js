@@ -10,7 +10,14 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-  origin: ['https://ravilegalassociates.com', 'http://localhost:3000'],
+  origin: (origin, callback) => {
+    const allowedOrigins = ['https://ravilegalassociates.com', 'http://localhost:3000'];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: true
@@ -20,7 +27,7 @@ app.options('*', cors());
 
 // Log requests
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url} - Origin: ${req.headers.origin}`);
+  console.log(`${req.method} ${req.url} - Origin: ${req.headers.origin || 'none'}`);
   next();
 });
 
@@ -28,14 +35,19 @@ app.use(express.json());
 
 console.log('MONGO_URI:', process.env.MONGO_URI || 'MONGO_URI not set');
 
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
   serverSelectionTimeoutMS: 5000,
   maxPoolSize: 10,
 }).then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err.message, err.stack));
 
+// Root route
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Ravi Legal Associates API is running' });
+});
+
+// API routes
 app.use('/api/contact', contactRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/careers', careersRoutes);
