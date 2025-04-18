@@ -16,13 +16,19 @@ app.use(cors({
     'http://localhost:3000',
   ],
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
+  allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept'],
   credentials: true,
   preflightContinue: false,
   optionsSuccessStatus: 204
 }));
 
-app.options('*', cors());
+app.options('*', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Origin, X-Requested-With, Accept');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.status(204).send();
+});
 
 // Log requests
 app.use((req, res, next) => {
