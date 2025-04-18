@@ -10,23 +10,16 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-  origin: (origin, callback) => {
-    console.log('Request Origin:', origin || 'none'); // Debug origin
-    const allowedOrigins = [
-      'https://ravilegalassociates.com',
-      'https://www.ravilegalassociates.com',
-      'http://localhost:3000',
-    ];
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.error('CORS rejected origin:', origin);
-      callback(null, false); // Gracefully reject
-    }
-  },
+  origin: [
+    'https://ravilegalassociates.com',
+    'https://www.ravilegalassociates.com',
+    'http://localhost:3000',
+  ],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
-  credentials: true
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 
 app.options('*', cors());

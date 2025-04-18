@@ -6,8 +6,8 @@ const Header = () => {
   return (
     <AppBar position="static" sx={{ bgcolor: '#001F5B' }}>
       <Container>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Toolbar sx={{ justifyContent: 'space-between', flexWrap: 'wrap', py: { xs: 1, md: 0 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
             <Button
               component={Link}
               to="/"
@@ -15,7 +15,7 @@ const Header = () => {
                 color: '#FFFFFF',
                 fontWeight: 'bold',
                 textTransform: 'none',
-                fontSize: '1.25rem',
+                fontSize: { xs: '1rem', md: '1.25rem' },
                 p: 1,
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
               }}
@@ -28,19 +28,21 @@ const Header = () => {
                 color: '#D4A017',
                 fontWeight: 'normal',
                 cursor: 'default',
+                fontSize: { xs: '0.9rem', md: '1.25rem' },
               }}
             >
               Legal Associates
             </Typography>
           </Box>
-          <Box>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', mt: { xs: 1, md: 0 } }}>
             <Button
               color="inherit"
               component={Link}
               to="/"
               sx={{
                 color: '#D4A017',
-                mx: 1,
+                mx: { xs: 0.5, md: 1 },
+                fontSize: { xs: '0.8rem', md: '1rem' },
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
               }}
             >
@@ -52,7 +54,8 @@ const Header = () => {
               to="/services"
               sx={{
                 color: '#D4A017',
-                mx: 1,
+                mx: { xs: 0.5, md: 1 },
+                fontSize: { xs: '0.8rem', md: '1rem' },
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
               }}
             >
@@ -64,7 +67,8 @@ const Header = () => {
               to="/practice-areas"
               sx={{
                 color: '#D4A017',
-                mx: 1,
+                mx: { xs: 0.5, md: 1 },
+                fontSize: { xs: '0.8rem', md: '1rem' },
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
               }}
             >
@@ -76,7 +80,8 @@ const Header = () => {
               to="/team"
               sx={{
                 color: '#D4A017',
-                mx: 1,
+                mx: { xs: 0.5, md: 1 },
+                fontSize: { xs: '0.8rem', md: '1rem' },
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
               }}
             >
@@ -88,7 +93,8 @@ const Header = () => {
               to="/careers"
               sx={{
                 color: '#D4A017',
-                mx: 1,
+                mx: { xs: 0.5, md: 1 },
+                fontSize: { xs: '0.8rem', md: '1rem' },
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
               }}
             >
@@ -100,7 +106,8 @@ const Header = () => {
               to="/contact"
               sx={{
                 color: '#D4A017',
-                mx: 1,
+                mx: { xs: 0.5, md: 1 },
+                fontSize: { xs: '0.8rem', md: '1rem' },
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
               }}
             >
