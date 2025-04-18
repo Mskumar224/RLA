@@ -1,32 +1,37 @@
 import React, { useState } from 'react';
-import { Box, Container, Typography, TextField, Button, Alert } from '@mui/material';
+import { Box, Container, Typography, TextField, Button, Alert, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import BackButton from '../components/BackButton';
-import axios from 'axios';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
+    caseType: '',
     message: '',
   });
   const [status, setStatus] = useState(null);
+
+  const caseTypes = [
+    'Constitutional Law',
+    'Criminal Law',
+    'Civil Law',
+    'Family Law',
+    'Corporate Law',
+    'Intellectual Property Law',
+    'Supreme Court Litigation',
+    'Corporate Law Compliance',
+    'Bail Applications',
+  ];
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/email`, formData, {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      });
-      setStatus({ type: 'success', message: response.data.message });
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      setStatus({ type: 'error', message: error.response?.data?.error || 'Failed to send message. Please try again.' });
-    }
+    setStatus({ type: 'success', message: 'We will be reaching out to you on your given number.' });
+    setFormData({ name: '', email: '', phone: '', caseType: '', message: '' });
   };
 
   return (
@@ -64,6 +69,32 @@ const Contact = () => {
             required
             sx={{ mb: 3 }}
           />
+          <TextField
+            fullWidth
+            label="Phone Number"
+            name="phone"
+            type="tel"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            sx={{ mb: 3 }}
+          />
+          <FormControl fullWidth required sx={{ mb: 3 }}>
+            <InputLabel id="case-type-label">Case Type</InputLabel>
+            <Select
+              labelId="case-type-label"
+              name="caseType"
+              value={formData.caseType}
+              onChange={handleChange}
+              label="Case Type"
+            >
+              {caseTypes.map((type) => (
+                <MenuItem key={type} value={type}>
+                  {type}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField
             fullWidth
             label="Message"
