@@ -1,26 +1,39 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Container } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <AppBar position="static" sx={{ bgcolor: '#003087' }}>
+    <AppBar position="static" sx={{ bgcolor: '#001F5B' }}>
       <Container>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography
-            variant="h6"
-            component={Link}
-            to="/"
-            sx={{
-              color: '#FFFFFF',
-              textDecoration: 'none',
-              fontWeight: 'bold',
-              cursor: 'default',
-            }}
-          >
-            <span style={{ fontWeight: 'bold' }}>RLA</span> Legal Associates
-          </Typography>
-          <div>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Button
+              component={Link}
+              to="/"
+              sx={{
+                color: '#FFFFFF',
+                fontWeight: 'bold',
+                textTransform: 'none',
+                fontSize: '1.25rem',
+                p: 1,
+                '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
+              }}
+            >
+              RLA
+            </Button>
+            <Typography
+              variant="h6"
+              sx={{
+                color: '#D4A017',
+                fontWeight: 'normal',
+                cursor: 'default',
+              }}
+            >
+              Legal Associates
+            </Typography>
+          </Box>
+          <Box>
             <Button
               color="inherit"
               component={Link}
@@ -29,7 +42,6 @@ const Header = () => {
                 color: '#D4A017',
                 mx: 1,
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
-                cursor: 'pointer',
               }}
             >
               Home
@@ -42,7 +54,6 @@ const Header = () => {
                 color: '#D4A017',
                 mx: 1,
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
-                cursor: 'pointer',
               }}
             >
               Services
@@ -55,7 +66,6 @@ const Header = () => {
                 color: '#D4A017',
                 mx: 1,
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
-                cursor: 'pointer',
               }}
             >
               Practice Areas
@@ -68,7 +78,6 @@ const Header = () => {
                 color: '#D4A017',
                 mx: 1,
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
-                cursor: 'pointer',
               }}
             >
               Team
@@ -81,7 +90,6 @@ const Header = () => {
                 color: '#D4A017',
                 mx: 1,
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
-                cursor: 'pointer',
               }}
             >
               Careers
@@ -94,12 +102,11 @@ const Header = () => {
                 color: '#D4A017',
                 mx: 1,
                 '&:hover': { bgcolor: '#D4A017', color: '#FFFFFF' },
-                cursor: 'pointer',
               }}
             >
               Contact
             </Button>
-          </div>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

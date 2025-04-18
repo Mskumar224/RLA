@@ -10,7 +10,20 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-  origin: ['https://ravilegalassociates.com', 'http://localhost:3000'],
+  origin: (origin, callback) => {
+    console.log('Request Origin:', origin || 'none'); // Debug origin
+    const allowedOrigins = [
+      'https://ravilegalassociates.com',
+      'https://www.ravilegalassociates.com',
+      'http://localhost:3000',
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.error('CORS rejected origin:', origin);
+      callback(null, false); // Gracefully reject
+    }
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: true
@@ -48,6 +61,12 @@ app.use('/api/careers', careersRoutes);
 // Catch-all for invalid routes
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  console.error('Server error:', err.message, err.stack);
+  res.status(500).json({ error: 'Internal server error' });
 });
 
 const PORT = process.env.PORT || 5000;
